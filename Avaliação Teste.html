@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Death Squad – Avaliação</title>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<style>
+body{background:#0b0b0b;font-family:Arial;color:#fff;display:flex;justify-content:center;padding:20px;}
+.app{width:100%;max-width:520px;background:#111;border-radius:16px;padding:20px;}
+h2{text-align:center;margin-bottom:10px;}
+label{font-size:12px;color:#aaa;margin-top:10px;display:block;}
+input,select,textarea{width:100%;padding:8px;border-radius:8px;border:none;background:#1c1c1c;color:#fff;}
+textarea{resize:none}
+.gerar-box{margin-top:14px;background:#0b0b0b;border-radius:12px;padding:12px;text-align:center;}
+.status-text{color:#fff;font-weight:bold;font-size:14px;margin-bottom:8px;}
+.btn-gerar{width:100%;padding:14px;border:none;border-radius:10px;background:#00ffff;color:#000;font-weight:bold;cursor:pointer;}
+#relatorio{display:none;background:#fff;color:#000;width:900px;padding:30px;}
+#relatorio h2{text-align:center;margin-bottom:20px;}
+table{width:100%;border-collapse:collapse;font-size:14px;}
+th,td{border:1px solid #000;padding:6px;}
+th{text-align:center;background:#eee;}
+.info td{border:none;padding:4px 0;}
+.footer{margin-top:20px;font-weight:bold;}
+</style>
+</head>
+<body>
+
+<div class="app">
+<h2>Death Squad – Avaliação</h2>
+
+<label>Nome Avaliado</label>
+<input id="nome">
+
+<label>Avaliador</label>
+<input id="avaliador">
+
+<label>Desempenho de Kills – Mapa Fechado</label>
+<select id="kf">
+<option>Ruim</option><option>Regular</option><option>Média</option><option>Boa</option><option>Excelente</option>
+</select>
+
+<label>Desempenho de Kills – Mapa Aberto</label>
+<select id="ka">
+<option>Ruim</option><option>Regular</option><option>Média</option><option>Boa</option><option>Excelente</option>
+</select>
+
+<label>Comunicação</label>
+<select id="com">
+<option>Ruim</option><option>Regular</option><option>Média</option><option>Boa</option><option>Excelente</option>
+</select>
+
+<label>Qualidade da Call</label>
+<select id="call">
+<option>Ruim</option><option>Regular</option><option>Média</option><option>Boa</option><option>Excelente</option>
+</select>
+
+<label>Team Play</label>
+<select id="team">
+<option>Ruim</option><option>Regular</option><option>Média</option><option>Boa</option><option>Excelente</option>
+</select>
+
+<label>Tomada de Decisão</label>
+<select id="dec">
+<option>Ruim</option><option>Regular</option><option>Média</option><option>Boa</option><option>Excelente</option>
+</select>
+
+<label>Posicionamento</label>
+<select id="pos">
+<option>Ruim</option><option>Regular</option><option>Média</option><option>Boa</option><option>Excelente</option>
+</select>
+
+<label>Consciência de Jogo</label>
+<select id="sense">
+<option>Ruim</option><option>Regular</option><option>Média</option><option>Boa</option><option>Excelente</option>
+</select>
+
+<label>Impacto no Round</label>
+<select id="impacto">
+<option>Ruim</option><option>Regular</option><option>Média</option><option>Boa</option><option>Excelente</option>
+</select>
+
+<label>Troca / Sobrevivência</label>
+<select id="trade">
+<option>Ruim</option><option>Regular</option><option>Média</option><option>Boa</option><option>Excelente</option>
+</select>
+
+<label>Avaliação Final</label>
+<select id="final">
+<option>❌ Reprovado</option>
+<option>⚠️ Em Análise</option>
+<option>✅ Aprovado</option>
+<option>⭐ Destaque</option>
+</select>
+
+<label>Pontos Fortes</label>
+<textarea id="pf" rows="2"></textarea>
+
+<label>Pontos Fracos</label>
+<textarea id="pfr" rows="2"></textarea>
+
+<div class="gerar-box">
+<div class="status-text">PRONTO PARA GERAR IMAGEM</div>
+<button class="btn-gerar" onclick="gerarImagem()">Gerar Relatório (Imagem)</button>
+</div>
+</div>
+
+<div id="relatorio">
+<h2>AVALIAÇÃO DE DESEMPENHO – DEATH SQUAD</h2>
+<table class="info">
+<tr><td><b>Nome:</b> <span id="r-nome"></span></td></tr>
+<tr><td><b>Avaliador:</b> <span id="r-avaliador"></span></td></tr>
+</table>
+<table>
+<tr><th>Critério</th><th>Avaliação</th><th>Status</th></tr>
+<tr><td>Kills – Mapa Fechado</td><td id="r-kf"></td><td>OK</td></tr>
+<tr><td>Kills – Mapa Aberto</td><td id="r-ka"></td><td>OK</td></tr>
+<tr><td>Comunicação</td><td id="r-com"></td><td>OK</td></tr>
+<tr><td>Qualidade da Call</td><td id="r-call"></td><td>OK</td></tr>
+<tr><td>Team Play</td><td id="r-team"></td><td>OK</td></tr>
+<tr><td>Tomada de Decisão</td><td id="r-dec"></td><td>OK</td></tr>
+<tr><td>Posicionamento</td><td id="r-pos"></td><td>—</td></tr>
+<tr><td>Consciência de Jogo</td><td id="r-sense"></td><td>OK</td></tr>
+<tr><td>Impacto no Round</td><td id="r-impacto"></td><td>OK</td></tr>
+<tr><td>Troca / Sobrevivência</td><td id="r-trade"></td><td>OK</td></tr>
+</table>
+<p><b>Pontos Fortes:</b> <span id="r-pf"></span></p>
+<p><b>Pontos Fracos:</b> <span id="r-pfr"></span></p>
+<p class="footer" id="r-final"></p>
+</div>
+
+<script>
+function gerarImagem(){
+  const ids=["nome","avaliador","kf","ka","com","call","team","dec","pos","sense","impacto","trade","pf","pfr"];
+  ids.forEach(i=>{
+    document.getElementById("r-"+i).innerText=document.getElementById(i).value;
+  });
+  document.getElementById("r-final").innerText=document.getElementById("final").value+" NA DEATH SQUAD";
+  const rel=document.getElementById("relatorio");
+  rel.style.display="block";
+  html2canvas(rel).then(c=>{
+    const a=document.createElement("a");
+    a.download="avaliacao-death-squad.png";
+    a.href=c.toDataURL();
+    a.click();
+    rel.style.display="none";
+  });
+}
+</script>
+
+</body>
+</html>
